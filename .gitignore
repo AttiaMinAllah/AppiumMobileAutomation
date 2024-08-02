@@ -118,3 +118,4 @@ dmypy.json
 # macOS specific
 .DS_Store
 
+venv/
