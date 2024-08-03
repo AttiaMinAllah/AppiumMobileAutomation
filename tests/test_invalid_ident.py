@@ -1,38 +1,38 @@
-import unittest
+import pytest
+import json
+import os
 from appium import webdriver
 from appium.options.android import UiAutomator2Options
-from pages.home_page import HomePage
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
+from common.utils import wait_for_element  # Update import path
 
-class InvalidIdentTest(unittest.TestCase):
+@pytest.fixture(scope="module")
+def driver():
+    options = UiAutomator2Options()
+    options.platform_name = 'Android'
+    options.device_name = 'emulator-5554'
+    options.app = '/Users/attiaminallah/Documents/IDnow/coding-challenge/app-release-signed-534.apk'
+    options.automation_name = 'UiAutomator2'
 
-    def setUp(self):
-        options = UiAutomator2Options()
-        options.platform_name = 'Android'
-        options.device_name = 'emulator-5554'
-        options.app = '/Users/attiaminallah/Documents/IDnow/coding-challenge/app-release-signed-534.apk'
-        options.automation_name = 'UiAutomator2'
+    driver = webdriver.Remote('http://localhost:4723', options=options)
+    yield driver
+    driver.quit()
 
-        self.driver = webdriver.Remote('http://localhost:4723/wd/hub', options=options)
-        self.home_page = HomePage(self.driver)
+def test_invalid_ident(driver):
+    # Validate that the home screen is displayed with an edit box for ident id and a button labeled 'start ident'
+    ident_box = wait_for_element(driver, By.ID, 'editTextCode')
+    start_button = driver.find_element(By.ID, 'start_ident')
+    assert ident_box.is_displayed()
+    assert start_button.is_displayed()
 
-    def test_invalid_ident(self):
-        self.assertTrue(self.home_page.is_displayed())
-        invalid_ident_id = 'TS2-XXXX'
-        self.home_page.enter_ident_id(invalid_ident_id)
+    # Enter an invalid ident ID in the text box and click the 'start ident' button
+    invalid_ident_id = 'TS2-XXXX'
+    ident_box.send_keys(invalid_ident_id)
+    start_button.click()
 
-        error_message = WebDriverWait(self.driver, 30).until(
-            EC.presence_of_element_located((By.ID, 'android:id/message'))
-        )
-        self.assertTrue(error_message.is_displayed())
-        ok_button = self.driver.find_element(By.ID, 'android:id/button1')
-        self.assertTrue(ok_button.is_displayed())
-        ok_button.click()
-
-    def tearDown(self):
-        self.driver.quit()
-
-if __name__ == '__main__':
-    unittest.main()
+    # Validate that the error message is displayed
+    error_message = wait_for_element(driver, By.ID, 'android:id/message')
+    assert error_message.is_displayed()
+    ok_button = driver.find_element(By.ID, 'android:id/button1')
+    assert ok_button.is_displayed()
+    ok_button.click()
