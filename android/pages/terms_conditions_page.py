@@ -1,5 +1,5 @@
 from selenium.webdriver.common.by import By
-from android.pages.base_page import BasePage
+from common.base_page import BasePage
 
 class TermsConditionsPage(BasePage):
     def __init__(self, driver):
