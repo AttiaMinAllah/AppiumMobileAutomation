@@ -1,4 +1,3 @@
-# import pytest
 from selenium.webdriver.common.by import By
 
 def test_invalid_ident_ID(driver, home_page):
