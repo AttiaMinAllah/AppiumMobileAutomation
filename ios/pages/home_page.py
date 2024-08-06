@@ -4,8 +4,8 @@ from common.base_page import BasePage
 class HomePage(BasePage):
     def __init__(self, driver):
         super().__init__(driver)
-        self.ident_box = (By.ID, 'ios_ident_box_id')  # Update this with actual iOS locator
-        self.start_button = (By.ID, 'ios_start_button_id')  # Update this with actual iOS locator
+        self.ident_box = (By.XPATH, '//XCUIElementTypeTextField[@value="SG1-P"]')  
+        self.start_button = (By.ID, 'Start')
 
     def enter_ident_id(self, ident_id):
         self.wait_for_element(*self.ident_box).send_keys(ident_id)

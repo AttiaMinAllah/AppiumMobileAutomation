@@ -10,5 +10,5 @@ class TermsConditionsPage(BasePage):
     def close_terms_conditions(self):
         self.wait_for_element(*self.close_icon).click()
 
-    def is_displayed(self):
+    def is_terms_conditions_displayed(self):
         return self.wait_for_element(*self.terms_conditions).is_displayed()

@@ -1,4 +1,5 @@
-Appium-Python-Client==2.7.1
+appium-python-client==2.7.1
 selenium==4.1.0
 pytest==6.2.5
-pytest-xdist==2.5.0  # Optional, for running tests in parallel
+pytest-xdist==2.5.0
+urllib3==1.26.19

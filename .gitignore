@@ -115,7 +115,8 @@ dmypy.json
 # VS Code
 .vscode/
 
-# macOS specific
+# Exclude macOS system files
 .DS_Store
 
-venv/
+# Exclude generated analysis files
+allfileshas.txt

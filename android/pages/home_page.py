@@ -11,5 +11,5 @@ class HomePage(BasePage):
         self.wait_for_element(*self.ident_box).send_keys(ident_id)
         self.driver.find_element(*self.start_button).click()
 
-    def is_ident_box_displayed(self):
+    def is_ident_field_displayed(self):
         return self.wait_for_element(*self.ident_box).is_displayed()
