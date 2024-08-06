@@ -111,7 +111,8 @@ For BrowserStack to run tests on iOS devices, ensure you have the following setu
 1. **BrowserStack Account**: Signin with your account (https://www.browserstack.com/).
 
 2. **Set BrowserStack Credentials**:
-    - Add your BrowserStack username and access key to the `.env`.
+    - I added the browserstack credentials directly in the conftest file because those credentials are expired now 
+    - But Ideally we should add them in .env file and use as export 
 
 3. **iOS App Setup on BrowserStack**:
     - Upload your iOS app to BrowserStack and get the app URL (e.g., `bs://<app-hash>`).
